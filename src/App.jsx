@@ -1,7 +1,9 @@
-import {useState} from 'react'
-import './App.css'
+import {useState,useEffect} from 'react'
 import {Tarea} from './components/Tarea'
 import Alerta from './components/Alerta'
+import db from './util/firebase'
+import { collection,query,addDoc, onSnapshot, where } from 'firebase/firestore';
+import './App.css'
 import {
   ChakraProvider,Text,Input,Button,
   Flex,Center,Box} from "@chakra-ui/react"
@@ -13,6 +15,23 @@ function App() {
   const [mensajeAlerta, setMensajeAlerta] = useState('')
   const [alertaVisible, setAlertaVisible] = useState(false)
 
+useEffect( () =>{
+  const obtenerDatos = () =>{
+    const q = query(collection(db, "tareasBase"));
+  onSnapshot(q, (querySnapshot) => {
+  const tareasBase = [];
+  querySnapshot.forEach((doc) => {
+      tareasBase.push(({id:doc.id,
+                    tarea:doc.data().tarea}));
+  });
+  setTareas(tareasBase);
+});
+  
+  }
+obtenerDatos()
+
+},[])
+
   const eventNuevaTarea = (event) => 
   setNuevaTarea(event.target.value);
 
@@ -23,7 +42,7 @@ function App() {
 
   const agregarTarea = (event) => {
     event.preventDefault();
-    if(tareas.find(e => e===nuevaTarea) !== undefined){
+    if(tareas.find(e => e.tarea===nuevaTarea) !== undefined){
       setMensajeAlerta('Esta tarea ya se encuentra en el listado')
       mostrarAlerta()
     }
@@ -32,11 +51,19 @@ function App() {
       mostrarAlerta()
     }
     else{
-      setTareas([...tareas].concat(nuevaTarea));
+      setTareas([...tareas].concat({tarea:nuevaTarea}));
+
+      const agregarTareasBase = async() => {
+        await addDoc(collection(db, "tareasBase"), {
+          tarea: `${nuevaTarea}`
+        })
+      }
+      agregarTareasBase()
+  
       setNuevaTarea('');
     }
   }
-
+console.log(tareas)
   const cambiarTareas = (cambio) =>{
     setTareas(cambio);
   }
