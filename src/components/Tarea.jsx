@@ -3,6 +3,7 @@ import {EditarTarea} from './EditarTarea'
 import {
   Text,IconButton,
   Flex,Spacer,Box} from "@chakra-ui/react"
+import { motion } from "framer-motion";
 import {AiFillEdit, AiTwotoneDelete} from 'react-icons/ai'
 import { doc, deleteDoc} from 'firebase/firestore'
 import db from './../util/firebase'
@@ -23,10 +24,11 @@ export const Tarea = ({x,i,tareas,cambiarTareas,setMensajeAlerta,mostrarAlerta})
       }
 
     return(
-        <Flex key={i} boxShadow="xl" align="center" borderRadius="5px" p={2} bg="gray.300" width="100%" mt={1}>
+        <Flex as={motion.div} key={x.i} boxShadow="xl" align="center" borderRadius="5px" p={1} 
+        bg="gray.300" width="100%" mt={1} initial={{scale: 0}} animate={{scale: 1}} exit={{scale: 0}} transition={{scale:{duration: .5}}}>
             <Box p={2} > 
             {!edicionVisible &&
-              <Text fontFamily="'Source Sans Pro', sans-serif;" fontSize="1.5em" >{x.tarea}</Text>
+              <Text fontFamily="'PT Sans Narrow', sans-serif;" fontSize="1.5em" >{x.tarea}</Text>
             }
             {edicionVisible && 
                 <EditarTarea tarea={x} tareas={tareas} edicion={edicion} cerrarEdicion={()=>setEdicionVisible(false)}
