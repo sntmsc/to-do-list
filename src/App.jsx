@@ -48,14 +48,14 @@ obtenerDatos()
     tareas.map( (x, i) => 
       <Tarea key={i} x={x} i={i} tareas={tareas} cambiarTareas={cambiarTareas}
        setMensajeAlerta={(mensaje)=>setMensajeAlerta(mensaje)} 
-       mostrarAlerta={()=>mostrarAlerta()}/>
+       mostrarAlerta={()=>mostrarAlerta()} />
     )
 
   return (
     <ChakraProvider>
       <Flex direction="column">
           <Flex  direction="column" className="App">
-          <Text as="samp" fontSize={{base:"5xl",md:"6xl",lg:"7xl"}} fontFamily=" 'Indie Flower', cursive;" color="gray50" mt={5} mb={5}> Tareas a realizar:</Text>
+          <Text as="samp" fontSize={{base:"5xl",md:"6xl",lg:"7xl"}} fontFamily=" 'Indie Flower', cursive;" color="gray50" mt={5} mb={5}> Tareas a realizar</Text>
            <InputForm  tareas={tareas} cambiarTareas={cambiarTareas} cambiarAlerta={cambiarAlerta} mostrarAlerta={mostrarAlerta}/>
           </Flex>
           <Box mt={5}>

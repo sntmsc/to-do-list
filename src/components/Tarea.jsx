@@ -13,9 +13,9 @@ export const Tarea = ({x,i,tareas,cambiarTareas,setMensajeAlerta,mostrarAlerta})
     const [edicionVisible, setEdicionVisible] = useState(false);
 
     const eliminarTarea = async(x) =>{
-        let tareaFiltrada = [...tareas].filter(z => z!==x)
-        cambiarTareas(tareaFiltrada);
-        await deleteDoc(doc(db, "tareasBase", x.id))
+      let tareaFiltrada = [...tareas].filter(z => z!==x)
+      cambiarTareas(tareaFiltrada);
+      await deleteDoc(doc(db, "tareasBase", x.id))
         
       }
     
@@ -24,7 +24,7 @@ export const Tarea = ({x,i,tareas,cambiarTareas,setMensajeAlerta,mostrarAlerta})
       }
 
     return(
-        <Flex as={motion.div} key={x.i} boxShadow="xl" align="center" borderRadius="5px" p={1} 
+        <Flex as={motion.div} key={x.i} boxShadow="dark-lg" align="center" borderRadius="5px" p={1} 
         bg="gray.300" width="100%" mt={1} initial={{scale: 0}} animate={{scale: 1}} exit={{scale: 0}} transition={{scale:{duration: .5}}}>
             <Box p={2} > 
             {!edicionVisible &&
