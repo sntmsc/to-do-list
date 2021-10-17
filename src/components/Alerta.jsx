@@ -6,7 +6,7 @@ import {
 const Alerta = ({mensaje,close}) => {
     
     return(
-        <Alert width={{base:"80%",md:"40%"}} status="error">
+        <Alert width={{base:"80%", lg:"30%",xl:"20%"}} status="error">
             <AlertIcon />
             
             <AlertDescription width='80%' textAlign='center'>{mensaje}</AlertDescription>
